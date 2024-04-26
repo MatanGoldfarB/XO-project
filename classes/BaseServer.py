@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import socket
-from ConnectionHandler import ConnectionHandler
+from classes.ConnectionHandler import ConnectionHandler
+from classes.ConnectionImpl import ConnectionsImpl
 
 
 class BaseServer(ABC):
@@ -9,6 +10,7 @@ class BaseServer(ABC):
         self.protocolFactory = protocolFactory
         self.encdecFactory = encdecFactory
         self.running = True
+        self.connectios = ConnectionsImpl()
 
     @abstractmethod
     def execute(self, handler):
@@ -24,6 +26,7 @@ class BaseServer(ABC):
             encdec = self.encdecFactory.get()
             prot = self.protocolFactory.get()
             handler = ConnectionHandler(clientSock, encdec, prot)
+            self.connectios.connect(handler)
             self.execute(handler)
 
     def terminate(self):
