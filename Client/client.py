@@ -19,7 +19,7 @@ try:
             data = clientSock.recv(1024)
             reply = encdec.decode(data)
             print("client recieved back "+reply)
-            if reply == "0":
+            if reply != "0":
                 terminate = True
 finally:
     clientSock.close()

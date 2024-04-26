@@ -8,5 +8,5 @@ class ThreadPerClientServer(BaseServer):
         self.board = Board()
 
     def execute(self, handler):
-        handler.protocol.start(self.board, self.connectios.connections)
+        handler.protocol.start(self.board, self.connectios, self.connectios.connections)
         threading.Thread(target=handler.run).start()

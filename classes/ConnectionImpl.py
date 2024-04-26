@@ -8,4 +8,7 @@ class ConnectionsImpl():
         self.map[self.connections] = handler
 
     def disconnect(self, connectionId):
-        del self.map[connectionId]
+        handler = self.map.get(connectionId)
+        if handler is not None:
+            handler.terminate()
+            del self.map[connectionId]
