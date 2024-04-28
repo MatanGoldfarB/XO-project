@@ -8,7 +8,21 @@ class XOProtocol(MessagingProtocol):
         self.shouldTerminate = False
 
     def process(self, msg):
-        print(msg)
+        if msg == "name":
+            print("please enter your name first")
+            return False
+        if msg == "terminate":
+            return True
+        if msg == "error":
+            print("please enter a place for your token")
+            return False
+        if msg.isdigit():
+            if msg == "0":
+                return False
+            print("the winner is: " + msg)
+            return True
+            
+
     
     def shouldTerminate(self):
         return self.shouldTerminate

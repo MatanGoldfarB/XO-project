@@ -11,9 +11,11 @@ class ConnectionHandler():
             msg = self.encdec.decode(data)
             if msg == "bye":
                 self.shouldTerminate=True
-            reply = self.protocol.process(msg)
-            packet = self.encdec.encode(reply)
-            self.sock.sendall(packet)
+            self.protocol.process(msg)
 
     def terminate(self):
         self.shouldTerminate = True
+
+    def send(self, msg):
+        packet = self.encdec.encode(msg)
+        self.sock.sendall(packet)

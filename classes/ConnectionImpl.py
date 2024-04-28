@@ -7,8 +7,16 @@ class ConnectionsImpl():
         self.connections+=1
         self.map[self.connections] = handler
 
-    def disconnect(self, connectionId):
-        handler = self.map.get(connectionId)
-        if handler is not None:
-            handler.terminate()
-            del self.map[connectionId]
+    def reset(self):
+        for connectionId in range(1,self.connections):
+            handler = self.map.get(connectionId)
+            if handler is not None:
+                handler.terminate()
+                del self.map[connectionId]
+        self.connections=0
+
+    def getNumConnections(self):
+        return self.connections
+    
+    def send(self, connectionId, msg):
+        self.map[connectionId].send(msg)

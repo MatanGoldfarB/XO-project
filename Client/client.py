@@ -10,6 +10,7 @@ server_address = ('localhost', 9999)
 
 clientSock.connect(server_address)
 encdec = XOEncDec()
+prot = XOProtocol()
 terminate = False
 
 try:
@@ -18,8 +19,6 @@ try:
             clientSock.sendall(encdec.encode(message))
             data = clientSock.recv(1024)
             reply = encdec.decode(data)
-            print("client recieved back "+reply)
-            if reply != "0":
-                terminate = True
+            terminate = prot.process(reply)
 finally:
     clientSock.close()
